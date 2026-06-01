@@ -1,0 +1,504 @@
+/* 1. VARIABLES CON TU NUEVA PALETA */
+:root {
+    --dark-green: #00953b;    /* Sidebar y Headers */
+    --primary-green: #00953b; /* Botones principales */
+    --light-green: #76bc43;   /* Detalles y éxitos */
+    --orange-amber: #ffa400;  /* Alertas / Resaltados */
+    --deep-orange: #ff671d;   /* Botones de borrado / Importante */
+    
+    --bg-light: #f4f7f6;
+    --white: #ffffff;
+    --border-gray: #e0e0e0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    background-color: var(--bg-light);
+    min-height: 100vh;
+}
+
+/* 2. SIDEBAR (COLOR #007853) */
+.sidebar {
+    width: 240px;
+    background-color: var(--dark-green);
+    color: white;
+    position: fixed;
+    height: 100vh;
+    z-index: 100;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar-logo {
+    padding: 20px;
+    text-align: center;
+}
+
+.mini-logo {
+    max-width: 140px;
+    height: auto;
+    filter: brightness(0) invert(1);
+}
+
+.sidebar-nav a {
+    display: block;
+    padding: 15px 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.sidebar-nav a:hover {
+    background-color: var(--primary-green);
+}
+
+/* 3. CONTENIDO PRINCIPAL */
+.main-content {
+    margin-left: 240px;
+    flex-grow: 1;
+    width: calc(100% - 240px);
+}
+
+.top-navbar {
+    background: var(--white);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--light-green); /* Detalle en verde claro */
+}
+
+.breadcrumb a {
+    color: var(--dark-green);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--dark-green);
+    font-weight: 500;
+}
+
+.content-header {
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content-header h1 {
+    font-size: 22px;
+    color: var(--dark-green);
+}
+
+/* 4. FORMULARIO */
+.form-container {
+    padding: 0 30px 40px 30px;
+}
+
+.form-section {
+    background: white;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.form-section h3 {
+    font-size: 16px;
+    color: var(--dark-green);
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-gray);
+    padding-bottom: 10px;
+}
+
+.grid-inputs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+}
+
+.field input, .field select, .field textarea {
+    padding: 10px;
+    border: 1px solid var(--border-gray);
+    border-radius: 4px;
+    outline: none;
+}
+
+.field input:focus, .field select:focus {
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 2px rgba(0, 149, 59, 0.1);
+}
+
+/* Campos especiales */
+#fecha-recibida {
+    border-left: 4px solid var(--orange-amber); /* Resaltado en naranja */
+    background-color: #fff9ed;
+}
+
+.input-readonly {
+    background-color: #f9f9f9;
+    color: #777;
+    cursor: not-allowed;
+}
+
+/* =========================================
+   7. GESTIÓN DE COMPROBANTES (REDISEÑO)
+   ========================================= */
+
+/* Contenedor de las 3 columnas */
+.grid-comprobantes {
+    display: flex;             /* Cambiamos a Flexbox para control horizontal total */
+    flex-direction: row;       /* Fuerza la línea horizontal */
+    justify-content: center;   /* Centra el grupo de cajas en el medio de la pantalla */
+    align-items: stretch;      /* Hace que todas tengan la misma altura si una es más alta */
+    gap: 30px;                 /* Espacio de separación entre ellas */
+    padding: 20px;
+    width: 100%;               /* Ocupa el ancho disponible */
+    flex-wrap: nowrap;         /* Evita que se bajen a la siguiente línea (a menos que sea móvil) */
+}
+/* Caja individual de cada comprobante */
+.upload-box {
+    background: #ffffff;
+    border: 1px solid var(--border-gray);
+    border-radius: 12px;
+    padding: 20px; /* Más espacio interno */
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espacio entre el label y la zona de carga */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    transition: all 0.3s ease;
+    min-width: 250px; /* Evita que se encojan demasiado */
+}
+
+/* Título (Comprobante 1, 2, etc) */
+.upload-box {
+    background: #ffffff;
+    border: 1px solid var(--border-gray);
+    border-radius: 12px;
+    padding: 20px;
+    width: 300px;              /* Ancho fijo para que las 3 sumen ~900px + gaps */
+    display: flex;
+    flex-direction: column;
+    align-items: center;       /* Centra todo el contenido interno */
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.upload-box:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-green);
+}
+
+.drop-zone {
+    width: 100%;               /* Ocupa todo el interior de la tarjeta */
+    min-height: 180px;
+    border: 2px dashed #cbd5e0;
+    border-radius: 10px;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.drop-zone:hover {
+    border-color: var(--primary-green);
+    background: #f0fdf4;
+}
+
+.drop-zone i.fa-cloud-upload-alt {
+    font-size: 2rem;
+    color: var(--light-green);
+    margin-bottom: 8px;
+}
+
+.upload-text {
+    font-size: 11px;
+    color: #718096;
+    line-height: 1.4;
+    padding: 0 10px;
+}
+
+/* El input que abarca todo pero es invisible */
+.file-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+/* La cajita blanca que aparece cuando ya seleccionaste archivo */
+.preview-zone {
+    position: relative;
+    z-index: 5; /* Por encima del input para poder hacer clic */
+    width: 100%;
+    pointer-events: none; /* Deja pasar el clic al input a menos que sea un link */
+}
+
+.preview-zone a, 
+.preview-zone div {
+    pointer-events: auto; /* Permite clics en el botón de descarga */
+}
+
+/* Estilo del botón "Descargar para revisar" */
+.btn-download-preview {
+    background: var(--primary-green);
+    color: white !important;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s, background 0.2s;
+}
+
+.btn-download-preview:hover {
+    background: var(--dark-green);
+    transform: translateY(-1px);
+}
+
+/* Ajuste para que el texto del nombre del archivo no rompa el diseño */
+.preview-zone p {
+    font-size: 11px;
+    color: #333;
+    margin: 5px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* 6. BOTONES */
+.btn-save {
+    padding: 12px 30px;
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-save:hover {
+    background-color: var(--dark-green);
+}
+
+.btn-cancel {
+    padding: 12px 30px;
+    background: white;
+    border: 1px solid var(--deep-orange); /* Borde naranja fuerte */
+    color: var(--deep-orange);
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.btn-cancel:hover {
+    background-color: #fff5f0;
+}
+/* Quitar flechas por defecto en inputs numéricos para un diseño más limpio */
+/* Estándar moderno */
+input[type=number] {
+    appearance: textfield; /* Propiedad estándar */
+    -webkit-appearance: textfield; /* Para Safari/Chrome antiguo */
+    -moz-appearance: textfield; /* Para Firefox */
+}
+
+/* Quitar flechas en Chrome, Safari, Edge y Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* CLASE PARA LA PESTAÑA ACTIVA */
+/* EFECTO DE PESTAÑA ACTIVA (FONDO BLANCO + BARRA NARANJA) */
+.sidebar-nav a.active-sub {
+    background-color: var(--white) !important; /* Fondo blanco */
+    color: var(--dark-green) !important;      /* Texto verde oscuro */
+    border-left: 5px solid var(--orange-amber) !important; /* La barrita naranja */
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+}
+
+/* Para que el icono también cambie a verde oscuro */
+.sidebar-nav a.active-sub i {
+    color: var(--dark-green) !important;
+}
+
+
+/* Zona de carga interna */
+.drop-zone {
+    border: 2px dashed #cbd5e0;
+    border-radius: 10px;
+    padding: 30px 10px; /* Más altura para que no se vea apretado */
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px; /* Altura mínima garantizada */
+}
+
+
+/* Barra de estado del archivo actual (LO QUE CAMBIA EL DISEÑO) */
+.file-status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f0fff4; /* Verde muy sutil */
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #c6f6d5;
+}
+
+.btn-view {
+    color: #2f855a;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-view:hover { text-decoration: underline; }
+
+.check-delete {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    color: #c53030;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 0 !important; /* Quitar margenes heredados */
+}
+
+.check-delete input { margin: 0; cursor: pointer; }
+
+/* Zona de carga */
+.drop-zone {
+    position: relative;
+    border: 2px dashed #cbd5e0;
+    border-radius: 8px;
+    padding: 25px 15px;
+    text-align: center;
+    background: #f8fafc;
+    transition: all 0.2s ease;
+}
+
+.drop-zone:hover {
+    border-color: #ff671d;
+    background: #fff;
+}
+
+.drop-zone i {
+    font-size: 2rem;
+    color: #ff671d;
+    margin-bottom: 10px;
+}
+
+.upload-text {
+    display: block;
+    font-size: 0.8rem;
+    color: #718096;
+}
+
+.file-input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Miniatura de imagen */
+.preview-zone img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-top: 10px;
+    border: 1px solid #e2e8f0;
+}
+
+.btn-preview-temp:hover {
+    text-decoration: underline;
+    color: #0056b3 !important;
+}
+
+.drop-zone {
+    position: relative;
+    overflow: hidden;
+}
+
+.file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 1; /* El input está en la capa 1 */
+}
+
+.preview-zone {
+    position: relative;
+    z-index: 10; /* El botón de descarga estará en la capa 10 (por encima) */
+    pointer-events: none; /* Por defecto no bloquea el clic hacia el input */
+}
+
+/* Cuando haya un botón dentro, permitimos clics solo en el botón */
+.preview-zone a {
+    pointer-events: auto; 
+}
+
+.btn-download-preview {
+    background: #007bff;
+    color: white !important;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    display: inline-block;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.btn-download-preview:hover {
+    background: #0056b3;
+}

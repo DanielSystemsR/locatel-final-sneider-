@@ -1,0 +1,248 @@
+:root {
+    --sidebar-color: #00953b;    /* Verde oscuro */
+    --sidebar-hover: #00953b;    
+    --text-sidebar: #ffffff;
+    --bg-main: #f4f7f6;
+    --white: #ffffff;
+    --border-color: #e0e0e0;
+    --primary-btn: #00953b;      /* Botón principal verde */
+    --accent-light: #76bc43;     
+    --accent-orange: #ffa400;    /* Naranja detalle activo */
+    --danger-red: #ff671d;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Forzado para todo */
+}
+
+body {
+    display: flex;
+    background-color: var(--bg-main);
+    min-height: 100vh;
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+    width: 240px;
+    background-color: var(--sidebar-color);
+    height: 100vh;
+    z-index: 100;
+    color: var(--text-sidebar);
+    position: fixed;
+}
+
+.sidebar-logo {
+    padding: 20px;
+    text-align: center;
+}
+
+.mini-logo {
+    max-width: 140px;
+    filter: brightness(0) invert(1);
+}
+
+.sidebar-nav a {
+    display: block;
+    padding: 15px 20px;
+    color: var(--text-sidebar);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.active-sub {
+    background-color: var(--white) !important;
+    color: var(--sidebar-color) !important;
+    border-left: 4px solid var(--accent-orange) !important;
+}
+
+/* --- MAIN CONTENT --- */
+.main-content {
+    margin-left: 240px;
+    flex-grow: 1;
+    min-height: 100vh;
+    padding-bottom: 80px; /* Evita que se corte al final */
+}
+
+/* --- NAVBAR SUPERIOR --- */
+.top-navbar {
+    background: var(--white);
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--accent-light);
+}
+
+.input-wrapper input {
+    padding: 8px 40px 8px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    width: 300px;
+    outline: none;
+    font-family: inherit; /* Asegura que herede Segoe UI */
+}
+
+/* --- ENCABEZADO Y BOTÓN (CORREGIDO) --- */
+.content-header {
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content-header h1 {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--sidebar-color);
+    text-transform: uppercase;
+}
+
+.content-header h1::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 4px;
+    background: var(--accent-orange);
+    margin-top: 5px;
+    border-radius: 2px;
+}
+
+/* Estilo unificado para el botón de registro */
+.btn-new {
+    background: var(--primary-btn);
+    color: white !important;
+    text-decoration: none;
+    font-family: 'Segoe UI', Arial, sans-serif !important; /* FORZAMOS LA LETRA AQUÍ */
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 22px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-new:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    background-color: #007a30;
+}
+
+/* --- TABLA ORIGINAL --- */
+.table-container {
+    padding: 0 30px 40px 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    font-size: 13px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+th {
+    text-align: left;
+    padding: 15px;
+    border-bottom: 2px solid var(--bg-main);
+    color: var(--sidebar-color);
+    background-color: #fafafa;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    color: #444;
+}
+
+/* --- ACCIONES --- */
+.actions i {
+    margin-right: 12px;
+    cursor: pointer;
+    color: var(--primary-btn);
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+.actions i:hover {
+    transform: scale(1.2);
+}
+
+.actions i.delete {
+    color: var(--danger-red);
+}
+
+/* Dropdown Filtro */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 5px);
+    background-color: var(--white);
+    min-width: 180px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    z-index: 1000;
+}
+
+.show-filter {
+    display: block !important;
+}
+
+/* Contenedor principal del selector */
+.dataTables_length {
+    float: left;
+    margin-bottom: 25px;
+    background: #f9f9f9;
+    padding: 10px 18px;
+    border-radius: 50px; /* Estilo píldora */
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    font-family: 'Segoe UI', sans-serif;
+    color: #555;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* El menú desplegable (Select) */
+.dataTables_length select {
+    appearance: none; /* Quita el estilo por defecto del navegador */
+    background-color: #ffffff;
+    border: 2px solid #00953b; /* Verde Locatel */
+    border-radius: 8px;
+    color: #00953b;
+    padding: 4px 12px;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+/* Efecto al pasar el mouse por el select */
+.dataTables_length select:hover {
+    background-color: #00953b;
+    color: white;
+}
+
+/* Ajuste para los textos de la paginación y info (abajo) */
+.dataTables_info {
+    font-weight: 500;
+    color: #888 !important;
+    margin-top: 15px;
+}
+
+.dataTables_paginate {
+    margin-top: 15px !important;
+}

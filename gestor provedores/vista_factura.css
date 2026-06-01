@@ -1,0 +1,267 @@
+:root {
+    --sidebar-color: #00953b;
+    --sidebar-hover: #00953b;
+    --text-sidebar: #ffffff;
+    --bg-main: #f4f7f6;
+    --white: #ffffff;
+    --border-color: #e0e0e0;
+    --primary-btn: #00953b;
+    --accent-light: #76bc43;
+    --accent-orange: #ffa400;
+    --danger-red: #ff671d;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    background-color: var(--bg-main);
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    background-color: var(--sidebar-color);
+    height: 100vh;
+    z-index: 100;
+    color: var(--text-sidebar);
+    position: fixed;
+}
+
+.sidebar-logo {
+    padding: 20px;
+    text-align: center;
+}
+
+.mini-logo {
+    max-width: 140px;
+    filter: brightness(0) invert(1);
+}
+
+.sidebar-nav a {
+    display: block;
+    padding: 15px 20px;
+    color: var(--text-sidebar);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.active-sub {
+    background-color: var(--white) !important;
+    color: var(--sidebar-color) !important;
+    border-left: 4px solid var(--accent-orange) !important;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 240px;
+    flex-grow: 1;
+    min-height: 100vh;
+    padding-bottom: 100px; /* ESTO EVITA QUE EL FINAL DE LA PAGINA SE CORTE */
+}
+
+/* Top Navbar */
+.top-navbar {
+    background: var(--white);
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--accent-light);
+}
+
+.input-wrapper input {
+    padding: 8px 35px 8px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    width: 300px;
+}
+
+/* --- DISEÑO DE TITULO Y BOTON --- */
+.content-header {
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content-header h1 {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--sidebar-color);
+    text-transform: uppercase;
+}
+
+.content-header h1::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 4px;
+    background: var(--accent-orange);
+    margin-top: 5px;
+    border-radius: 2px;
+}
+
+.btn-save {
+    background: var(--primary-btn);
+    color: white !important;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* --- TABLA ORIGINAL (RESTAURADA) --- */
+.table-container {
+    padding: 0 30px 50px 30px; /* Espacio extra abajo */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse; /* Volvemos al estilo original */
+    background: var(--white);
+    font-size: 13px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    /* IMPORTANTE: Eliminamos overflow:hidden para que no corte las celdas */
+}
+
+th {
+    text-align: left;
+    padding: 15px;
+    border-bottom: 2px solid var(--bg-main);
+    color: var(--sidebar-color);
+    background-color: #fafafa;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    color: #444;
+}
+
+/* Acciones */
+.actions i {
+    margin-right: 12px;
+    cursor: pointer;
+    color: var(--primary-btn);
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+.actions i:hover {
+    transform: scale(1.2);
+    opacity: 0.8;
+}
+
+.actions i.delete {
+    color: var(--danger-red);
+}
+
+/* Evitar corte en la última fila */
+tr:last-child td {
+    border-bottom: 1px solid #eee; /* Asegura que la última línea exista */
+}
+
+/* --- DISEÑO DEL FILTRO DE RECEPCIÓN --- */
+.filter-container {
+    background: var(--white);
+    margin: 0 30px 20px 30px;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 5px solid var(--accent-orange); /* Detalle naranja Locatel */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.filter-container h2 {
+    font-size: 14px;
+    color: var(--sidebar-color);
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-group {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-field label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #666;
+}
+
+.input-field input[type="date"] {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 14px;
+    color: #444;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-field input[type="date"]:focus {
+    border-color: var(--sidebar-color);
+}
+
+.btn-filter {
+    background-color: var(--sidebar-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn-filter:hover {
+    background-color: #007a30; /* Un verde un poco más oscuro */
+    transform: translateY(-1px);
+}
+
+/* Estilo para el botón de limpiar que agregamos en el PHP */
+.btn-clear {
+    text-decoration: none;
+    padding: 10px 15px;
+    background: #f0f0f0;
+    color: #666;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-clear:hover {
+    background: #e0e0e0;
+    color: #333;
+}

@@ -1,0 +1,38 @@
+FROM php:8.2-apache
+
+# 1. Instalar curl y herramientas de llaves primero (Evita el error 127)
+RUN apt-get update && apt-get install -y \
+    curl \
+    gnupg2 \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# 2. Configurar el repositorio de Microsoft de forma moderna
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg \
+    && echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/debian/11/prod bullseye main" > /etc/apt/sources.list.d/mssql-release.list
+
+# 3. Instalar drivers y dependencias de SQL Server (ODBC y unixodbc)
+RUN apt-get update && ACCEPT_EULA=Y apt-get install -y \
+    msodbcsql17 \
+    mssql-tools \
+    unixodbc-dev \
+    libicu-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# ... (Pasos anteriores igual)
+
+# 4. Instalar versiones específicas compatibles con PHP 8.2
+RUN pecl install sqlsrv-5.12.0 pdo_sqlsrv-5.12.0 \
+    && docker-php-ext-enable sqlsrv pdo_sqlsrv
+# Agregar herramientas de SQL Server al PATH
+ENV PATH="$PATH:/opt/mssql-tools/bin"
+# ... (Resto del código)
+
+# 5. Configuración final de Apache y Carpetas
+# 5. Configuración final de Apache y Carpetas
+RUN a2enmod rewrite \
+    && mkdir -p /var/www/html/uploads/proveedores \
+    && chown -R www-data:www-data /var/www/html/uploads \
+    && chmod -R 775 /var/www/html/uploads
+
+WORKDIR /var/www/html

@@ -1,0 +1,173 @@
+:root {
+    --sidebar-color: #00953b;    /* Verde oscuro */
+    --sidebar-hover: #00953b;    /* Verde principal */
+    --text-sidebar: #ffffff;
+    --bg-main: #f4f7f6;
+    --white: #ffffff;
+    --border-color: #e0e0e0;
+    --primary-btn: #00953b;      /* Botón principal verde */
+    --accent-light: #76bc43;     /* Verde claro detalles */
+    --accent-orange: #ffa400;    /* Naranja detalle activo */
+    --danger-red: #ff671d;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    background-color: var(--bg-main);
+}
+
+/* Sidebar & Main (Igual a tu original) */
+.sidebar { width: 240px; background-color: var(--sidebar-color); min-height: 100vh; position: fixed; }
+.sidebar-logo { padding: 20px; text-align: center; }
+.mini-logo { max-width: 120px; filter: brightness(0) invert(1); }
+.sidebar-nav a { display: block; padding: 12px 20px; color: white; text-decoration: none; font-size: 13px; font-weight: bold; }
+.active-sub { background-color: rgba(255,255,255,0.1); border-left: 4px solid var(--accent-light); }
+.main-content { margin-left: 240px; flex-grow: 1; }
+
+.top-navbar {
+    background: var(--white);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--accent-light);
+}
+
+/* --- TITULOS DE SECCIÓN (Estilo Locatel) --- */
+.form-section-title {
+    grid-column: span 2; /* Para que ocupe todo el ancho del grid */
+    margin: 25px 0 10px;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--sidebar-color);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- FORM CARD --- */
+.form-container { padding: 0 30px 40px; }
+.form-card {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    max-width: 950px; /* Un poco más ancho para que quepa SAP y RIF */
+}
+
+/* --- GRID SISTEMA --- */
+.grid-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+/* Grid de 3 para Contactos y Bancos */
+.grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    grid-column: span 2; /* Para que entre en el contenedor principal */
+}
+
+.field { display: flex; flex-direction: column; gap: 8px; }
+.full-width { grid-column: span 2; }
+
+.field label { font-size: 13px; font-weight: 700; color: #444; }
+
+.field input, .field select, .field textarea {
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+    background-color: #fff;
+}
+
+.field input:focus {
+    border-color: var(--primary-btn);
+    box-shadow: 0 0 5px rgba(0, 149, 59, 0.1);
+}
+
+/* --- ESTILO DE ADJUNTOS (Limpio, no tosco) --- */
+.file-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    grid-column: span 2;
+    margin-top: 10px;
+}
+
+.file-field {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.file-field label { font-size: 11px; display: block; margin-bottom: 8px; color: var(--sidebar-color); }
+.file-field input { font-size: 11px; width: 100%; }
+
+/* Botones (Tus originales) */
+.form-actions { margin-top: 35px; display: flex; justify-content: flex-end; gap: 15px; }
+.btn-save { padding: 12px 30px; background-color: var(--primary-btn); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+.btn-cancel { padding: 12px 30px; background: transparent; color: var(--danger-orange); border: 1.5px solid var(--danger-orange); border-radius: 5px; font-weight: bold; cursor: pointer; }
+
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    background-color: var(--sidebar-color);
+    height: 100vh;
+    z-index: 100;
+    color: var(--text-sidebar);
+    position: fixed;
+}
+
+.sidebar-logo {
+    padding: 20px;
+    text-align: center;
+}
+
+.mini-logo {
+    max-width: 140px;
+    filter: brightness(0) invert(1); /* Vuelve el logo blanco si es necesario */
+}
+
+.sidebar-nav a {
+    display: block;
+    padding: 15px 20px;
+    color: var(--text-sidebar);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.sidebar-nav a:hover {
+    background-color: var(--sidebar-hover);
+}
+
+.sub-menu {
+    background-color: #009688;
+}
+
+.sub-menu a {
+    padding-left: 45px;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.active-sub {
+    background-color: var(--white) !important;
+    color: var(--sidebar-color) !important;
+    border-left: 4px solid var(--accent-orange) !important;
+}
